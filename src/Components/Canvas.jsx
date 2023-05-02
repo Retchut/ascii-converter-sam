@@ -1,18 +1,20 @@
-import { useEffect } from "react";
-import { useOpenCv } from "opencv-react";
+import { useEffect, useRef } from "react";
+import LoadedIMG from "../Assets/sample.png";
 
 function Canvas() {
-    const { loaded, cv } = useOpenCv()
+  const canvasRef = useRef(null);
 
-    useEffect(() => {
-        if (cv) {
-            let canvas = document.getElementById("pop");
-            let ctx = canvas.getContext('2d');
-            let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        }
-    }, [cv])
+  useEffect(() => {
+    let canvas = canvasRef.current;
+    let context = canvas.getContext("2d");
+  }, []);
 
-    return <canvas id="pop" className="app-canvas"></canvas>
+  return (
+    <div>
+      <img src={LoadedIMG} className="original-img" />
+      <canvas ref={canvasRef} className="converted-canvas"></canvas>
+    </div>
+  );
 }
 
 export default Canvas;
