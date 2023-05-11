@@ -28,10 +28,8 @@ function TransformationForm(props) {
 				<option value={defaultTransform}>
 					Transform to {defaultTransform}
 				</option>
-				<option value="value2">Transformation 2</option>
-				{/* <option value="value3">
-					Transformation 3
-				</option> */}
+				{/* <option value="value2">Transformation 2</option> */}
+				{/* <option value="value3">Transformation 3</option> */}
 			</select>
 			<input type="submit" value="Apply" />
 		</form>
