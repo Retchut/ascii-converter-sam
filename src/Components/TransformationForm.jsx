@@ -1,14 +1,17 @@
 import { useState } from "react";
 
 function TransformationForm(props) {
-	const { applyTransformation } = props;
+	const { applyTransformation } = props; // get callback passed as prop
+
 	const defaultTransform = "grayscale";
 	const [selectedTransform, setSelectedTransform] = useState(defaultTransform);
 
+	// called whenever the form's select value changes
 	const handleChange = (event) => {
 		setSelectedTransform(event.target.value);
 	};
 
+	// called when the form is submitted
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		applyTransformation(selectedTransform);

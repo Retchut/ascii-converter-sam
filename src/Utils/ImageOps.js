@@ -1,10 +1,15 @@
 import { grayscaleTransformation } from "./ImageTransformations";
 
 function setCanvasImage(canvasRef, image) {
+	// load canvas context
 	let canvas = canvasRef.current;
 	let ctx = canvas.getContext("2d");
+
+	// load image
 	let srcImg = new Image();
 	srcImg.src = image;
+
+	// when the image is loaded, draw it in the canvas
 	srcImg.onload = function () {
 		canvas.width = srcImg.width;
 		canvas.height = srcImg.height;
@@ -29,7 +34,10 @@ function transformCanvas(openCV, canvasRef, transformation) {
 			return;
 	}
 
+	// display image on canvas
 	openCV.imshow(canvas, dest);
+
+	// cleanup
 	srcImage.delete();
 	dest.delete();
 }
