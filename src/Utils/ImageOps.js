@@ -24,8 +24,6 @@ function transformCanvas(openCV, canvasRef, transformation) {
 		case "grayscale":
 			grayscaleTransformation(openCV, srcImage, dest);
 			break;
-		case "rotate90Right":
-			break;
 		default:
 			console.error("no such transformation --", transformation);
 			return;
