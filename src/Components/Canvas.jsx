@@ -1,63 +1,41 @@
 import { useEffect, useRef } from "react";
+import { useOpenCv } from "opencv-react";
+
+import TransformationForm from "./TransformationForm";
+import { setCanvasImage, transformCanvas } from "../Utils/ImageOps";
+
 import LoadedIMG from "../Assets/sample.png";
 
-function getPixelData(canvasContext, x, y) {
-  return canvasContext.getImageData(x, y, 1, 1).data;
-}
-
 function Canvas() {
-  const imgRef = useRef(null);
-  const srcRef = useRef(null);
-  const destRef = useRef(null);
-  let img;
-  let srcCanvas;
-  let destCanvas;
+	const { loaded, cv } = useOpenCv();
+	const inputCanvas = useRef(null);
+	const outputCanvas = useRef(null);
 
-  useEffect(() => {
-    img = imgRef.current;
-    /** @type {HTMLCanvasElement} */
-    srcCanvas = srcRef.current;
-    /** @type {HTMLCanvasElement} */
-    destCanvas = destRef.current;
-  }, [imgRef, srcRef, destRef]);
+	const setupCanvases = () => {
+		setCanvasImage(inputCanvas, LoadedIMG); // TODO: change this to receive the uploaded image
+		setCanvasImage(outputCanvas, LoadedIMG); // TODO: change this to receive the uploaded image
+	};
 
-  const setCanvas = () => {
-    // retrieve original image dimensions
-    const imgWidth = img.width;
-    const imgHeight = img.height;
+	const applyTransformation = (transformation) =>
+		transformCanvas(cv, outputCanvas, transformation);
 
-    // set canvas dimensions
-    srcCanvas.width = imgWidth;
-    srcCanvas.height = imgHeight;
-    destCanvas.width = imgWidth;
-    destCanvas.height = imgHeight;
+	//setup canvases after the first render
+	useEffect(() => setupCanvases(), []);
 
-    // draw the image on the src canvas
-    const srcContext = srcCanvas.getContext("2d");
-    srcContext.drawImage(img, 0, 0);
-
-    //
-    console.log(getPixelData(srcContext, 10, 10));
-    console.log(getPixelData(srcContext, 180, 10));
-    console.log(getPixelData(srcContext, 10, 180));
-    console.log(getPixelData(srcContext, 180, 10));
-
-    const destContext = destCanvas.getContext("2d");
-    // draw on destination context canvas
-  };
-
-  return (
-    <div className="canvas-container">
-      <img
-        ref={imgRef}
-        src={LoadedIMG}
-        onLoad={setCanvas}
-        className="src-img"
-      />
-      <canvas ref={srcRef} />
-      <canvas ref={destRef} />
-    </div>
-  );
+	return (
+		<div className="canvas-container">
+			<canvas ref={inputCanvas} />
+			<canvas ref={outputCanvas} />
+			{loaded ? (
+				<>
+					<h1>loaded openCV</h1>
+					<TransformationForm applyTransformation={applyTransformation} />
+				</>
+			) : (
+				<h1>Loading OpenCV...</h1>
+			)}
+		</div>
+	);
 }
 
 export default Canvas;
