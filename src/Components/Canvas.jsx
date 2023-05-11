@@ -2,11 +2,17 @@ import { useEffect, useRef } from "react";
 import { useOpenCv } from "opencv-react";
 
 import TransformationForm from "./TransformationForm";
-import { setCanvasImage, transformCanvas } from "../Utils/ImageOps";
+import {
+	setCanvasImage,
+	transformCanvas,
+	getImageRGBAMat,
+} from "../Utils/ImageOps";
 
-import LoadedIMG from "../Assets/sample.png";
+// import LoadedIMG from "../Assets/sample1.png";
+import LoadedIMG from "../Assets/sample3.png";
+// import LoadedIMG from "../Assets/4pixel.png";
 
-function Canvas() {
+function Canvas(props) {
 	const { loaded, cv } = useOpenCv();
 	const inputCanvas = useRef(null);
 	const outputCanvas = useRef(null);

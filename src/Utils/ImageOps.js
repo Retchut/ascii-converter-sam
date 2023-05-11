@@ -20,14 +20,14 @@ function setCanvasImage(canvasRef, image) {
 function transformCanvas(openCV, canvasRef, transformation) {
 	let canvas = canvasRef.current;
 	// load original image from canvas
-	let srcImage = openCV.imread(canvas);
+	let srcMat = openCV.imread(canvas);
 	// create destination multi channel array
 	let dest = new openCV.Mat();
 
 	// apply transformation
 	switch (transformation) {
 		case "grayscale":
-			grayscaleTransformation(openCV, srcImage, dest);
+			grayscaleTransformation(openCV, srcMat, dest);
 			break;
 		default:
 			console.error("no such transformation --", transformation);
@@ -38,12 +38,29 @@ function transformCanvas(openCV, canvasRef, transformation) {
 	openCV.imshow(canvas, dest);
 
 	// cleanup
-	srcImage.delete();
+	srcMat.delete();
 	dest.delete();
 }
 
-function getPixelData(canvasContext, x, y) {
-	return canvasContext.getImageData(x, y, 1, 1).data;
+function getImageRGBAMat(openCV, canvasRef) {
+	let canvas = canvasRef.current;
+	// load original image from canvas
+	let srcMat = openCV.imread(canvas);
+	let pixelRGB = [];
+	const rgbaMat = srcMat.data;
+	const channels = srcMat.channels();
+
+	for (let i = 0; i < srcMat.rows; i++) {
+		for (let j = 0; j < srcMat.cols; j++) {
+			let r = rgbaMat[i * srcMat.cols * channels + j * channels + 0];
+			let g = rgbaMat[i * srcMat.cols * channels + j * channels + 1];
+			let b = rgbaMat[i * srcMat.cols * channels + j * channels + 2];
+			let a = rgbaMat[i * srcMat.cols * channels + j * channels + 3];
+			pixelRGB.push([r, g, b, a]);
+		}
+	}
+
+	return pixelRGB;
 }
 
-export { setCanvasImage, transformCanvas, getPixelData };
+export { setCanvasImage, transformCanvas, getImageRGBAMat };
