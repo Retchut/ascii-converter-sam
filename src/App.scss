@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    font-family: "Comic Sans MS", serif;
+
+    .page {
+        background-image: linear-gradient(to bottom right, purple, darkblue);
+        height: 100vh;
+        padding: 5em;
+        text-align: center;
+
+
+        .title {
+            margin: 0;
+            font-size: 3.5em;
+            -webkit-text-stroke-width: 0.02em;
+            -webkit-text-stroke-color: white;
+            position: sticky;
+            top: 0.5em;
+            padding-bottom: 1.5em;
+        }
+
+        input {
+            font-size: 1em;
+            font-family: "Comic Sans MS", serif;
+            width: auto;
+            color: white;
+        }
+        input::file-selector-button {
+            border: 0;
+            border-radius: 0.35em;
+            padding: 1em;
+            margin: 1em;
+            background-color: #ddddff;
+            font-family: "Comic Sans MS", serif;
+        }
+    }
+}
