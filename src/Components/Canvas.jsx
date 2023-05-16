@@ -40,7 +40,7 @@ function Canvas(props) {
 		<div className="canvas-container">
 			<canvas ref={inputCanvas} />
 			<canvas ref={outputCanvas} />
-			<textarea ref={outputText}></textarea>
+			<textarea ref={outputText} style={{"width": "300px","height": "300px","line-height": "10px"}}></textarea>
 			{loaded ? (
 				<>
 					<h1 className="canvas-container-title">loaded openCV</h1>
