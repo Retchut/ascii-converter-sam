@@ -1,4 +1,4 @@
-import { grayscaleTransformation } from "./ImageTransformations";
+import { grayscaleTransformation, asciiTransformation } from "./ImageTransformations";
 
 function setCanvasImage(canvasRef, image) {
 	// load canvas context
@@ -17,29 +17,31 @@ function setCanvasImage(canvasRef, image) {
 	};
 }
 
-function transformCanvas(openCV, canvasRef, transformation) {
+function transformCanvas(openCV, canvasRef, transformation, textRef) {
 	let canvas = canvasRef.current;
+	let inputText = textRef.current;
 	// load original image from canvas
 	let srcMat = openCV.imread(canvas);
 	// create destination multi channel array
-	let dest = new openCV.Mat();
 
 	// apply transformation
 	switch (transformation) {
 		case "grayscale":
+			let dest = new openCV.Mat();
 			grayscaleTransformation(openCV, srcMat, dest);
+			openCV.imshow(canvas, dest);
+		
+			// cleanup
+			dest.delete();
+			break;
+		case "ascii":
+			asciiTransformation(openCV, srcMat, inputText);
 			break;
 		default:
 			console.error("no such transformation --", transformation);
 			return;
 	}
-
-	// display image on canvas
-	openCV.imshow(canvas, dest);
-
-	// cleanup
 	srcMat.delete();
-	dest.delete();
 }
 
 function getImageRGBAMat(openCV, canvasRef) {
