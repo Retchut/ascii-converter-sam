@@ -13,22 +13,20 @@ function Canvas(props) {
 	const { uploadedImage } = props;
 	const { loaded, cv } = useOpenCv();
 	const inputCanvas = useRef(null);
-	const outputCanvas = useRef(null);
 	let baseImage;
 	const outputText = useRef(null);
 
-	const setupCanvases = (image) => {
-		setCanvasImage(inputCanvas, image);
-		setCanvasImage(outputCanvas, image);
+	const resetCanvas = () => {
+		setCanvasImage(inputCanvas, baseImage);
 	};
 
 	const applyTransformation = (transformation) =>
-		transformCanvas(cv, outputCanvas, transformation, outputText);
+		transformCanvas(cv, inputCanvas, transformation, outputText);
 
 	//setup canvases after the first render
 	useEffect(() => {
 		baseImage = URL.createObjectURL(uploadedImage);
-		setupCanvases(baseImage);
+		resetCanvas();
 
 		return () => {
 			// release memory
@@ -39,12 +37,12 @@ function Canvas(props) {
 	return (
 		<div className="canvas-container">
 			<canvas ref={inputCanvas} />
-			<canvas ref={outputCanvas} />
 			<textarea ref={outputText}></textarea>
 			{loaded ? (
 				<>
 					<h1 className="canvas-container-title">loaded openCV</h1>
 					<TransformationForm applyTransformation={applyTransformation} />
+					<button onClick={() => resetCanvas()}>Reset Image</button>
 				</>
 			) : (
 				<h1 className="canvas-container-title">Loading OpenCV...</h1>
