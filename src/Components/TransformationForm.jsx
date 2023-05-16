@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./TransformationForm.scss";
 
 function TransformationForm(props) {
 	const { applyTransformation } = props; // get callback passed as prop
@@ -28,11 +29,9 @@ function TransformationForm(props) {
 				onChange={handleChange}
 			>
 				{/* Make sure the "value"s are the same we have in the function that applies these transformations */}
-				<option value={defaultTransform}>
-					Transform to {defaultTransform}
-				</option>
-				{/* <option value="value2">Transformation 2</option> */}
-				{/* <option value="value3">Transformation 3</option> */}
+				<option value={defaultTransform}>Transform to {defaultTransform}</option>
+				<option value="rotateClockwise">Rotate clockwise</option>
+				<option value="rotateCounterClockwise">Rotate counter clockwise</option>
 			</select>
 			<input type="submit" value="Apply" />
 		</form>

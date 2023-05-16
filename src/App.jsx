@@ -7,12 +7,15 @@ import "./App.scss";
 function App() {
 
 	return (<div className="page">
-		<h1 className="title">ASCII converter SAM</h1>
-		<input type="file" />
-
-		<OpenCvProvider>
-			<Canvas />
-		</OpenCvProvider>
+		<div className="title">
+			<h1>ASCII converter SAM</h1>
+		</div>
+		<div className="content">
+			<input type="file" />
+			<OpenCvProvider>
+				<Canvas />
+			</OpenCvProvider>
+		</div>
 	</div>);
 }
 
