@@ -8,25 +8,31 @@ import {
 	getImageRGBAMat,
 } from "../Utils/ImageOps";
 
-// import LoadedIMG from "../Assets/sample1.png";
-import LoadedIMG from "../Assets/sample3.png";
-// import LoadedIMG from "../Assets/4pixel.png";
-
 function Canvas(props) {
+	const { uploadedImage } = props;
 	const { loaded, cv } = useOpenCv();
 	const inputCanvas = useRef(null);
 	const outputCanvas = useRef(null);
+	let baseImage;
 
-	const setupCanvases = () => {
-		setCanvasImage(inputCanvas, LoadedIMG); // TODO: change this to receive the uploaded image
-		setCanvasImage(outputCanvas, LoadedIMG); // TODO: change this to receive the uploaded image
+	const setupCanvases = (image) => {
+		setCanvasImage(inputCanvas, image);
+		setCanvasImage(outputCanvas, image);
 	};
 
 	const applyTransformation = (transformation) =>
 		transformCanvas(cv, outputCanvas, transformation);
 
 	//setup canvases after the first render
-	useEffect(() => setupCanvases(), []);
+	useEffect(() => {
+		baseImage = URL.createObjectURL(uploadedImage);
+		setupCanvases(baseImage);
+
+		return () => {
+			// release memory
+			URL.revokeObjectURL(baseImage);
+		};
+	}, [uploadedImage]);
 
 	return (
 		<div className="canvas-container">
