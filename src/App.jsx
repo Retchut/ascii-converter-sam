@@ -13,13 +13,17 @@ function App() {
 
 	return (
 		<div className="page">
-			<h1 className="title">ASCII converter SAM</h1>
-			<input type="file" onChange={(e) => onFileChange(e)} />
-			{imageFile && (
-				<OpenCvProvider>
-					<Canvas uploadedImage={imageFile} />
-				</OpenCvProvider>
-			)}
+			<div className="title">
+				<h1>ASCII converter SAM</h1>
+			</div>
+			<div className="content">
+				<input type="file" onChange={(e) => onFileChange(e)} />
+				{imageFile && (
+					<OpenCvProvider>
+						<Canvas uploadedImage={imageFile} />
+					</OpenCvProvider>
+				)}
+			</div>
 		</div>
 	);
 }

@@ -7,6 +7,7 @@ import {
 	transformCanvas,
 	getImageRGBAMat,
 } from "../Utils/ImageOps";
+import "./Canvas.scss";
 
 function Canvas(props) {
 	const { uploadedImage } = props;
@@ -40,11 +41,11 @@ function Canvas(props) {
 			<canvas ref={outputCanvas} />
 			{loaded ? (
 				<>
-					<h1>loaded openCV</h1>
+					<h1 className="canvas-container-title">loaded openCV</h1>
 					<TransformationForm applyTransformation={applyTransformation} />
 				</>
 			) : (
-				<h1>Loading OpenCV...</h1>
+				<h1 className="canvas-container-title">Loading OpenCV...</h1>
 			)}
 		</div>
 	);

@@ -1,4 +1,4 @@
-import { grayscaleTransformation } from "./ImageTransformations";
+import { grayscaleTransformation, rotateClockWise, rotateCounterClockWise } from "./ImageTransformations";
 
 function setCanvasImage(canvasRef, image) {
 	// load canvas context
@@ -28,6 +28,12 @@ function transformCanvas(openCV, canvasRef, transformation) {
 	switch (transformation) {
 		case "grayscale":
 			grayscaleTransformation(openCV, srcMat, dest);
+			break;
+		case "rotateClockwise":
+			rotateClockWise(openCV, srcMat, dest);
+			break;
+		case "rotateCounterClockwise":
+			rotateCounterClockWise(openCV, srcMat, dest);
 			break;
 		default:
 			console.error("no such transformation --", transformation);
