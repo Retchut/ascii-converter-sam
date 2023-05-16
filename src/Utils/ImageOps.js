@@ -1,4 +1,9 @@
-import { grayscaleTransformation, rotateClockWise, rotateCounterClockWise } from "./ImageTransformations";
+import {
+	grayscaleTransformation,
+	rotateClockWise,
+	rotateCounterClockWise,
+	getImageASCII,
+} from "./ImageTransformations";
 
 function setCanvasImage(canvasRef, image) {
 	// load canvas context
@@ -17,12 +22,13 @@ function setCanvasImage(canvasRef, image) {
 	};
 }
 
-function transformCanvas(openCV, canvasRef, transformation) {
+function transformCanvas(openCV, canvasRef, transformation, textRef) {
 	let canvas = canvasRef.current;
+	let inputText = textRef.current;
 	// load original image from canvas
 	let srcMat = openCV.imread(canvas);
-	// create destination multi channel array
 	let dest = new openCV.Mat();
+	let asciiText = "";
 
 	// apply transformation
 	switch (transformation) {
@@ -35,17 +41,23 @@ function transformCanvas(openCV, canvasRef, transformation) {
 		case "rotateCounterClockwise":
 			rotateCounterClockWise(openCV, srcMat, dest);
 			break;
+		case "ascii":
+			asciiText = getImageASCII(openCV, srcMat);
+			break;
 		default:
 			console.error("no such transformation --", transformation);
 			return;
 	}
 
-	// display image on canvas
-	openCV.imshow(canvas, dest);
+	// change image in canvas
+	if (transformation === "ascii") {
+		inputText.value = asciiText;
+	} else {
+		openCV.imshow(canvas, dest);
+	}
 
-	// cleanup
-	srcMat.delete();
 	dest.delete();
+	srcMat.delete();
 }
 
 function getImageRGBAMat(openCV, canvasRef) {

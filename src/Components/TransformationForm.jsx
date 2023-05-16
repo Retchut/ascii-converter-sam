@@ -29,9 +29,12 @@ function TransformationForm(props) {
 				onChange={handleChange}
 			>
 				{/* Make sure the "value"s are the same we have in the function that applies these transformations */}
-				<option value={defaultTransform}>Transform to {defaultTransform}</option>
+				<option value={defaultTransform}>
+					Transform to {defaultTransform}
+				</option>
 				<option value="rotateClockwise">Rotate clockwise</option>
 				<option value="rotateCounterClockwise">Rotate counter clockwise</option>
+				<option value="ascii">Transform to ascii</option>
 			</select>
 			<input type="submit" value="Apply" />
 		</form>

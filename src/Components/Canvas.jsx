@@ -15,6 +15,7 @@ function Canvas(props) {
 	const inputCanvas = useRef(null);
 	const outputCanvas = useRef(null);
 	let baseImage;
+	const outputText = useRef(null);
 
 	const setupCanvases = (image) => {
 		setCanvasImage(inputCanvas, image);
@@ -22,7 +23,7 @@ function Canvas(props) {
 	};
 
 	const applyTransformation = (transformation) =>
-		transformCanvas(cv, outputCanvas, transformation);
+		transformCanvas(cv, outputCanvas, transformation, outputText);
 
 	//setup canvases after the first render
 	useEffect(() => {
@@ -39,6 +40,7 @@ function Canvas(props) {
 		<div className="canvas-container">
 			<canvas ref={inputCanvas} />
 			<canvas ref={outputCanvas} />
+			<textarea ref={outputText}></textarea>
 			{loaded ? (
 				<>
 					<h1 className="canvas-container-title">loaded openCV</h1>
