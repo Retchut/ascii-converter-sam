@@ -43,7 +43,7 @@ function Canvas(props) {
 			<textarea ref={outputText} style={{"width": "300px","height": "300px","line-height": "10px"}}></textarea>
 			{loaded ? (
 				<>
-					<h1 className="canvas-container-title">loaded openCV</h1>
+				si	<h1 className="canvas-container-title">loaded openCV</h1>
 					<TransformationForm applyTransformation={applyTransformation} />
 				</>
 			) : (
