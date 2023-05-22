@@ -1,24 +1,22 @@
-form {
-    label {
-        color: white;
-        padding: 1em;
-    }
+h1 {
+    -webkit-text-stroke-width: 0.02em;
+    -webkit-text-stroke-color: white;
+    padding: 0;
+}
 
-    select {
-        border: 0;
-        border-radius: 0.35em;
-        padding: 1em;
-        margin: 1em;
-        background-color: #ddddff;
-        font-family: "Comic Sans MS", serif;
-    }
+.transformations-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    input {
-        border: 0.1em solid #ddddff;
-        border-radius: 0.35em;
-        padding: 1em;
-        margin: 1em;
-        background-color: darkblue;
-        font-family: "Comic Sans MS", serif;
-    }
+button {
+    max-width: fit-content;
+    border: 0.1em solid #ddddff;
+    border-radius: 0.35em;
+    padding: 1em;
+    margin: 1em;
+    color: white;
+    background-color: darkblue;
+    font-family: "Comic Sans MS", serif;
 }

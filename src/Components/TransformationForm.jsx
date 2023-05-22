@@ -1,43 +1,42 @@
-import { useState } from "react";
 import "./TransformationForm.scss";
 
 function TransformationForm(props) {
 	const { applyTransformation } = props; // get callback passed as prop
 
-	const defaultTransform = "grayscale";
-	const [selectedTransform, setSelectedTransform] = useState(defaultTransform);
-
-	// called whenever the form's select value changes
-	const handleChange = (event) => {
-		setSelectedTransform(event.target.value);
-	};
-
-	// called when the form is submitted
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		applyTransformation(selectedTransform);
-	};
+	// each array will show up as buttons in a new row
+	// value is the identifier on the `imageOps` script
+	// text is the contents of the button
+	const transformations = [
+		[
+			{ value: "grayscale", text: "Transform to grayscale" },
+			{ value: "rotateClockwise", text: "Rotate clockwise" },
+			{ value: "rotateCounterClockwise", text: "Rotate counter clockwise" },
+			{ value: "ascii", text: "ascii" },
+		],
+	];
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label htmlFor="transform-select">
-				Choose a transformation to perform
-			</label>
-			<select
-				defaultValue={defaultTransform}
-				name="transform-select"
-				onChange={handleChange}
-			>
-				{/* Make sure the "value"s are the same we have in the function that applies these transformations */}
-				<option value={defaultTransform}>
-					Transform to {defaultTransform}
-				</option>
-				<option value="rotateClockwise">Rotate clockwise</option>
-				<option value="rotateCounterClockwise">Rotate counter clockwise</option>
-				<option value="ascii">Transform to ascii</option>
-			</select>
-			<input type="submit" value="Apply" />
-		</form>
+		<section>
+			<h1>Choose a transformation to perform</h1>
+			<div>
+				{transformations.map((row, rowIndex) => (
+					<div
+						key={"transf-row-" + rowIndex}
+						className="transformations-container"
+					>
+						{row.map((transf, index) => (
+							<button
+								key={"transf" + index}
+								name={"transform-" + transf.value}
+								onClick={() => applyTransformation(transf.value)}
+							>
+								{transf.text}
+							</button>
+						))}
+					</div>
+				))}
+			</div>
+		</section>
 	);
 }
 
