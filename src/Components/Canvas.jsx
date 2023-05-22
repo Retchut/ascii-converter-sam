@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useOpenCv } from "opencv-react";
 
-import TransformationForm from "./TransformationForm";
+import TransformationSelector from "./TransformationSelector";
 import {
 	setCanvasImage,
 	transformCanvas,
@@ -36,7 +36,7 @@ function Canvas(props) {
 			{loaded ? (
 				<>
 					<h1 className="canvas-container-title">loaded openCV</h1>
-					<TransformationForm applyTransformation={applyTransformation} />
+					<TransformationSelector applyTransformation={applyTransformation} />
 					<button onClick={() => resetCanvas()}>Reset Image</button>
 				</>
 			) : (

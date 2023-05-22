@@ -1,4 +1,4 @@
-import "./TransformationForm.scss";
+import "./TransformationSelector.scss";
 
 function TransformationForm(props) {
 	const { applyTransformation } = props; // get callback passed as prop
