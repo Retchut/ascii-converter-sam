@@ -13,11 +13,12 @@ function Canvas(props) {
 	const { uploadedImage } = props;
 	const { loaded, cv } = useOpenCv();
 	const inputCanvas = useRef(null);
-	let baseImage;
 	const outputText = useRef(null);
 
 	const resetCanvas = () => {
+		const baseImage = URL.createObjectURL(uploadedImage);
 		setCanvasImage(inputCanvas, baseImage);
+		URL.revokeObjectURL(baseImage);
 	};
 
 	const applyTransformation = (transformation) =>
@@ -25,13 +26,7 @@ function Canvas(props) {
 
 	//setup canvases after the first render
 	useEffect(() => {
-		baseImage = URL.createObjectURL(uploadedImage);
 		resetCanvas();
-
-		return () => {
-			// release memory
-			URL.revokeObjectURL(baseImage);
-		};
 	}, [uploadedImage]);
 
 	return (
