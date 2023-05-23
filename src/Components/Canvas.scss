@@ -1,9 +1,24 @@
 .canvas-container {
-    padding: 1em;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1rem;
+}
 
-    .canvas-container-title {
-        -webkit-text-stroke-width: 0.02em;
-        -webkit-text-stroke-color: white;
-        padding: 1em;
-    }
+.canvas-container > canvas {
+    max-width: 512px;
+    max-height: 512px;
+}
+
+.canvas-container > textarea {
+    width: 512px;
+    height: 512px;
+    line-height: 10px;
+}
+
+.transformations-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
