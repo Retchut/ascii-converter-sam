@@ -16,7 +16,7 @@ function TransformationForm(props) {
 	];
 
 	return (
-		<div class="transformations-list">
+		<div className="transformations-list">
 			{transformations.map((row, rowIndex) => (
 				<div key={"transf-row-" + rowIndex} className="transformations-row">
 					{row.map((transf, index) => (

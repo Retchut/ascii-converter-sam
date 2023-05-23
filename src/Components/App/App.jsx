@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { OpenCvProvider } from "opencv-react";
 
-import Canvas from "./Components/Canvas.jsx";
+import Canvas from "../Canvas/Canvas.jsx";
 import "./App.scss";
 
 function App() {
 	const [imageFile, setImageFile] = useState(null);
 
 	const onFileChange = (e) => {
-		setImageFile(e.target.files[0]);
+		if (imageFile !== null) {
+			URL.revokeObjectURL(imageFile);
+		}
+		setImageFile(URL.createObjectURL(e.target.files[0]));
 	};
 
 	return (
