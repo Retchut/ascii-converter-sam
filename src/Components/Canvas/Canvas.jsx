@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useOpenCv } from "opencv-react";
 
-import TransformationSelector from "./TransformationSelector";
+import TransformationSelector from "../TransformationSelector/TransformationSelector";
 import {
 	setCanvasImage,
 	transformCanvas,
 	getImageRGBAMat,
-} from "../Utils/ImageOps";
+} from "../../Utils/ImageOps";
 import "./Canvas.scss";
 
 function Canvas(props) {

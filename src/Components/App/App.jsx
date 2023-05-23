@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { OpenCvProvider } from "opencv-react";
 
-import Canvas from "./Components/Canvas.jsx";
+import Canvas from "../Canvas/Canvas.jsx";
 import "./App.scss";
 
 function App() {
