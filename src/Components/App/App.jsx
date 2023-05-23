@@ -5,7 +5,11 @@ import Canvas from "../Canvas/Canvas.jsx";
 import "./App.scss";
 
 function App() {
-	const [files, setFiles] = useState({ imageFile: null, videoFile: null });
+	const [files, setFiles] = useState({
+		imageFile: null,
+		videoFile: null,
+		error: "",
+	});
 
 	const releaseFiles = () => {
 		if (files.imageFile !== null) {
@@ -20,6 +24,7 @@ function App() {
 		setFiles({
 			imageFile: URL.createObjectURL(file),
 			videoFile: null,
+			error: "",
 		});
 	};
 
@@ -27,6 +32,7 @@ function App() {
 		setFiles({
 			imageFile: null,
 			videoFile: URL.createObjectURL(file),
+			error: "",
 		});
 	};
 
@@ -51,6 +57,9 @@ function App() {
 				loadVideo(file);
 				break;
 			default:
+				setFiles({
+					error: "Image type not supported",
+				});
 				break;
 		}
 	};
@@ -66,6 +75,7 @@ function App() {
 					type="file"
 					onChange={(e) => onFileChange(e)}
 				/>
+				{files.error && <h1 className="stroke-text">{files.error}</h1>}
 				{files.imageFile && (
 					<OpenCvProvider>
 						<Canvas uploadedImage={files.imageFile} />
