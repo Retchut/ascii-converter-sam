@@ -12,41 +12,50 @@ function rotateCounterClockWise(openCV, src, dest) {
 
 function getImageASCII(openCV, src) {
 	openCV.cvtColor(src, src, openCV.COLOR_RGBA2GRAY);
-
-	const asciiChars = [' ', '.', ':', '-', '=', '+', '*', '#', '%', '@'];
-
+  
+	const asciiChars = '.`^\',":;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwoahkbdpqwm*#MW&B8%BL@$';
+  
+	const imageWidth = src.cols;
+	const imageHeight = src.rows;
+  
+	const maxWidth = 900;
+	const maxHeight = 512;
+  
+	const aspectRatio = Math.min(maxWidth / imageWidth, maxHeight / imageHeight);
+	const blockSize = Math.ceil(15 * aspectRatio);
+  
 	let asciiText = '';
 	let charCount = 0;
-
-	const blockSize = 15; // Size of the block for averaging (10px by 10px)
-
-	for (let i = 0; i < src.rows; i += blockSize) {
-		for (let j = 0; j < src.cols; j += blockSize) {
-			let totalGrayscale = 0;
-
-			// Calculate the average grayscale value of the block
-			for (let x = i; x < i + blockSize; x++) {
-				for (let y = j; y < j + blockSize; y++) {
-					const grayscaleValue = src.ucharPtr(x, y)[0];
-					totalGrayscale += grayscaleValue;
-				}
-			}
-
-			const averageGrayscale = totalGrayscale / (blockSize * blockSize);
-			const asciiIndex = Math.floor(averageGrayscale / (255 / (asciiChars.length - 1)));
-			const asciiChar = asciiChars[asciiIndex];
-			asciiText += asciiChar;
-			charCount++;
-
-			if (charCount >= (src.rows / blockSize)) {
-				asciiText += '\n';
-				charCount = 0;
-			}
+  
+	for (let i = 0; i < imageHeight; i += blockSize) {
+	  for (let j = 0; j < imageWidth; j += blockSize) {
+		let totalGrayscale = 0;
+  
+		for (let x = i; x < Math.min(i + blockSize, imageHeight); x++) {
+		  for (let y = j; y < Math.min(j + blockSize, imageWidth); y++) {
+			const grayscaleValue = src.ucharPtr(x, y)[0];
+			totalGrayscale += grayscaleValue;
+		  }
 		}
+  
+		const averageGrayscale = totalGrayscale / (blockSize * blockSize);
+		const asciiIndex = Math.floor((asciiChars.length - 1) * (1 - averageGrayscale / 255));
+		const asciiChar = asciiChars[asciiIndex];
+		asciiText += asciiChar;
+		charCount++;
+  
+		if (charCount >= (imageWidth / blockSize)) {
+		  asciiText += '\n';
+		  charCount = 0;
+		}
+	  }
 	}
-
+  
 	return asciiText;
-}
+  }
+  
+  
+  
 
 
 
