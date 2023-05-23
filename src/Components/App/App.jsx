@@ -31,6 +31,9 @@ function App() {
 	};
 
 	const onFileChange = (e) => {
+		if (e.target.files[0] === undefined) {
+			return;
+		}
 		let file = e.target.files[0];
 		const fileType = file.type.split("/");
 
