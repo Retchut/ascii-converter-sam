@@ -16,9 +16,7 @@ function Canvas(props) {
 	const outputText = useRef(null);
 
 	const resetCanvas = () => {
-		const baseImage = URL.createObjectURL(uploadedImage);
-		setCanvasImage(inputCanvas, baseImage);
-		URL.revokeObjectURL(baseImage);
+		setCanvasImage(inputCanvas, uploadedImage);
 	};
 
 	const applyTransformation = (transformation) =>

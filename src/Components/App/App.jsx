@@ -8,7 +8,10 @@ function App() {
 	const [imageFile, setImageFile] = useState(null);
 
 	const onFileChange = (e) => {
-		setImageFile(e.target.files[0]);
+		if (imageFile !== null) {
+			URL.revokeObjectURL(imageFile);
+		}
+		setImageFile(URL.createObjectURL(e.target.files[0]));
 	};
 
 	return (
