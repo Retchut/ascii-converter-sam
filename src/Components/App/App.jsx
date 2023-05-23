@@ -67,7 +67,7 @@ function App() {
 	return (
 		<main className="app">
 			<header>
-				<h1 className="title stroke-text">ASCII converter SAM</h1>
+				<h1 className="title stroke-text">ASCII converter</h1>
 			</header>
 			<section className="content">
 				<input
