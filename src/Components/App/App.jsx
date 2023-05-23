@@ -5,13 +5,51 @@ import Canvas from "../Canvas/Canvas.jsx";
 import "./App.scss";
 
 function App() {
-	const [imageFile, setImageFile] = useState(null);
+	const [files, setFiles] = useState({ imageFile: null, videoFile: null });
+
+	const releaseFiles = () => {
+		if (files.imageFile !== null) {
+			URL.revokeObjectURL(files.imageFile);
+		}
+		if (files.videoFile !== null) {
+			URL.revokeObjectURL(files.videoFile);
+		}
+	};
+
+	const loadImage = (file) => {
+		setFiles({
+			imageFile: URL.createObjectURL(file),
+			videoFile: null,
+		});
+	};
+
+	const loadVideo = (file) => {
+		setFiles({
+			imageFile: null,
+			videoFile: URL.createObjectURL(file),
+		});
+	};
 
 	const onFileChange = (e) => {
-		if (imageFile !== null) {
-			URL.revokeObjectURL(imageFile);
+		let file = e.target.files[0];
+		const fileType = file.type.split("/");
+
+		switch (fileType[0]) {
+			case "image":
+				releaseFiles();
+				if (fileType[1] === "gif") {
+					loadVideo(file);
+				} else {
+					loadImage(file);
+				}
+				break;
+			case "video":
+				releaseFiles();
+				loadVideo(file);
+				break;
+			default:
+				break;
 		}
-		setImageFile(URL.createObjectURL(e.target.files[0]));
 	};
 
 	return (
@@ -25,9 +63,15 @@ function App() {
 					type="file"
 					onChange={(e) => onFileChange(e)}
 				/>
-				{imageFile && (
+				{files.imageFile && (
 					<OpenCvProvider>
-						<Canvas uploadedImage={imageFile} />
+						<Canvas uploadedImage={files.imageFile} />
+					</OpenCvProvider>
+				)}
+				{files.videoFile && (
+					<OpenCvProvider>
+						{/* Insert video editor component here */}
+						{/* <VideoCanvas uploadedImage={files.videoFile} /> */}
 					</OpenCvProvider>
 				)}
 			</section>
