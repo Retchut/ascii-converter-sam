@@ -8,6 +8,7 @@
 .canvas-container > canvas {
     max-width: 512px;
     max-height: 512px;
+    align-self: center;
 }
 
 .canvas-container > textarea {
@@ -21,4 +22,14 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+}
+
+@media only screen and (max-width: 1250px) {
+	.canvas-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .canvas-container > * {
+        margin: 1rem 0rem;
+    }
 }
