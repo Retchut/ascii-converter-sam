@@ -13,7 +13,7 @@ function rotateCounterClockWise(openCV, src, dest) {
 function getImageASCII(openCV, src) {
 	openCV.cvtColor(src, src, openCV.COLOR_RGBA2GRAY);
   
-	const asciiChars = '.`^\',":;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwoahkbdpqwm*#MW&B8%BL@$';
+	const asciiChars = [".", ",", "$", "Y", "+", "P", "*", "%", "D", "J", "@"];
   
 	const imageWidth = src.cols;
 	const imageHeight = src.rows;
@@ -52,7 +52,8 @@ function getImageASCII(openCV, src) {
 	}
   
 	return asciiText;
-  }
+}
+  
   
   
   
