@@ -1,22 +1,10 @@
-h1 {
-    -webkit-text-stroke-width: 0.02em;
-    -webkit-text-stroke-color: white;
-    padding: 0;
+.transformations-list {
+    max-width: 850px;
+    width: 100%;
 }
 
-.transformations-container {
+.transformations-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-button {
-    max-width: fit-content;
-    border: 0.1em solid #ddddff;
-    border-radius: 0.35em;
-    padding: 1em;
-    margin: 1em;
-    color: white;
-    background-color: darkblue;
-    font-family: "Comic Sans MS", serif;
 }

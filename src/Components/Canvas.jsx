@@ -30,19 +30,27 @@ function Canvas(props) {
 	}, [uploadedImage]);
 
 	return (
-		<div className="canvas-container">
-			<canvas ref={inputCanvas} />
-			<textarea ref={outputText}></textarea>
-			{loaded ? (
-				<>
-					<h1 className="canvas-container-title">loaded openCV</h1>
-					<TransformationSelector applyTransformation={applyTransformation} />
-					<button onClick={() => resetCanvas()}>Reset Image</button>
-				</>
-			) : (
-				<h1 className="canvas-container-title">Loading OpenCV...</h1>
-			)}
-		</div>
+		<>
+			<section className="transformations-container">
+				{loaded ? (
+					<>
+						<h1 className="subtitle stroke-text">
+							Loaded openCV - choose a transformation to perform!
+						</h1>
+						<TransformationSelector applyTransformation={applyTransformation} />
+						<button className="edit-btn btn-text" onClick={() => resetCanvas()}>
+							Reset Image
+						</button>
+					</>
+				) : (
+					<h1 className="subtitle stroke-text">Loading OpenCV...</h1>
+				)}
+			</section>
+			<section className="canvas-container">
+				<canvas ref={inputCanvas} />
+				<textarea ref={outputText}></textarea>
+			</section>
+		</>
 	);
 }
 

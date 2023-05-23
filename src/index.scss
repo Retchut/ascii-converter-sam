@@ -1,0 +1,64 @@
+body {
+	margin: 0;
+	background-image: linear-gradient(to bottom right, purple, darkblue);
+}
+
+h1,h2,h3,h4,h5,h6,p,input {
+    margin: 0;
+	font-family: "Comic Sans MS", serif;
+}
+
+canvas {
+	image-rendering: pixelated;
+}
+
+input::file-selector-button{
+    border: 0;
+	margin: 0 2rem;
+	margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 0.35rem;
+	cursor: pointer;
+	font-family: "Comic Sans MS", serif;
+}
+
+.btn-text {
+	font-size: 1rem;
+	color: white;
+}
+
+.edit-btn {
+	cursor: pointer;
+    max-width: fit-content;
+    border: 0.1em solid #ddddff;
+    border-radius: 0.35em;
+    padding: 1em;
+    margin: 1em;
+    background-color: darkblue;
+    font-family: "Comic Sans MS", serif;
+}
+
+.edit-btn:hover {
+	background-color: #ddddff;
+	color: black;
+}
+
+.stroke-text {
+	-webkit-text-stroke-width: 0.1rem;
+	-webkit-text-stroke-color: white;
+}
+
+.title {
+	font-size: 4rem;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.subtitle {
+	font-size: 2rem;
+    text-align: center;
+}
+
+.text-white {
+	color: white;
+}

@@ -16,27 +16,22 @@ function TransformationForm(props) {
 	];
 
 	return (
-		<section>
-			<h1>Choose a transformation to perform</h1>
-			<div>
-				{transformations.map((row, rowIndex) => (
-					<div
-						key={"transf-row-" + rowIndex}
-						className="transformations-container"
-					>
-						{row.map((transf, index) => (
-							<button
-								key={"transf" + index}
-								name={"transform-" + transf.value}
-								onClick={() => applyTransformation(transf.value)}
-							>
-								{transf.text}
-							</button>
-						))}
-					</div>
-				))}
-			</div>
-		</section>
+		<div class="transformations-list">
+			{transformations.map((row, rowIndex) => (
+				<div key={"transf-row-" + rowIndex} className="transformations-row">
+					{row.map((transf, index) => (
+						<button
+							className="edit-btn btn-text"
+							key={"transf" + index}
+							name={"transform-" + transf.value}
+							onClick={() => applyTransformation(transf.value)}
+						>
+							{transf.text}
+						</button>
+					))}
+				</div>
+			))}
+		</div>
 	);
 }
 

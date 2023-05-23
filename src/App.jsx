@@ -12,19 +12,23 @@ function App() {
 	};
 
 	return (
-		<div className="page">
-			<div className="title">
-				<h1>ASCII converter SAM</h1>
-			</div>
-			<div className="content">
-				<input type="file" onChange={(e) => onFileChange(e)} />
+		<main className="app">
+			<header>
+				<h1 className="title stroke-text">ASCII converter SAM</h1>
+			</header>
+			<section className="content">
+				<input
+					className="btn-text"
+					type="file"
+					onChange={(e) => onFileChange(e)}
+				/>
 				{imageFile && (
 					<OpenCvProvider>
 						<Canvas uploadedImage={imageFile} />
 					</OpenCvProvider>
 				)}
-			</div>
-		</div>
+			</section>
+		</main>
 	);
 }
 
