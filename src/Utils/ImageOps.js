@@ -25,8 +25,13 @@ function setCanvasImage(canvasRef, image) {
 function transformCanvas(openCV, canvasRef, transformation, textRef) {
 	let canvas = canvasRef.current;
 	let inputText = textRef.current;
+	console.log(textRef);
+	
 	// load original image from canvas
 	let srcMat = openCV.imread(canvas);
+	inputText.style.height = inputText.scrollHeight + "px";
+	inputText.style.width = inputText.scrollWidth + "px";
+
 	let dest = new openCV.Mat();
 	let asciiText = "";
 
