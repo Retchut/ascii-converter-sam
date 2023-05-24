@@ -2,6 +2,7 @@ import { useState } from "react";
 import { OpenCvProvider } from "opencv-react";
 
 import Canvas from "../Canvas/Canvas.jsx";
+import VideoEditor from "../VideoEditor/VideoEditor.jsx";
 import "./App.scss";
 
 function App() {
@@ -83,8 +84,7 @@ function App() {
 				)}
 				{files.videoFile && (
 					<OpenCvProvider>
-						{/* Insert video editor component here */}
-						{/* <VideoCanvas uploadedImage={files.videoFile} /> */}
+						<VideoEditor uploadedVideo={files.videoFile} />
 					</OpenCvProvider>
 				)}
 			</section>
