@@ -11,16 +11,14 @@ function VideoEditor(props) {
 	const { uploadedVideo } = props;
 	const { loaded, cv } = useOpenCv();
 	const inputVideo = useRef(null);
-	const outputVideo = useRef(null);
 	const outputText = useRef(null);
 
 	const resetVideo = () => {
 		setVideo(inputVideo, uploadedVideo);
-		setVideo(outputVideo, uploadedVideo);
 	};
 
 	const applyTransformation = (transformation) =>
-		transformVideo(cv, outputVideo, transformation, outputText);
+		transformVideo(cv, inputVideo, transformation, outputText);
 
 	//setup videos after the first render
 	useEffect(() => {
@@ -45,9 +43,13 @@ function VideoEditor(props) {
 				)}
 			</section>
 			<section className="canvas-container">
-				<video controls ref={inputVideo} />
-				<video controls ref={outputVideo} />
-				<textarea ref={outputText}></textarea>
+				<div style={{display: "flex", flexDirection: "column"}}>
+					<video controls ref={inputVideo}/>
+					<textarea ref={outputText} style={{width: 100 + '%', height: 350 + 'px'}}></textarea>
+				</div>
+				<div style={{display: "flex", flexDirection: "column"}}>
+					<canvas id="canvas" controls />
+				</div>
 			</section>
 		</>
 	);
