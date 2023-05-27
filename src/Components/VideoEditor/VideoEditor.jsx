@@ -11,6 +11,7 @@ function VideoEditor(props) {
 	const { uploadedVideo } = props;
 	const { loaded, cv } = useOpenCv();
 	const inputVideo = useRef(null);
+	const outputCanvas = useRef(null);
 	const outputText = useRef(null);
 
 	const resetVideo = () => {
@@ -18,7 +19,7 @@ function VideoEditor(props) {
 	};
 
 	const applyTransformation = (transformation) =>
-		transformVideo(cv, inputVideo, transformation, outputText);
+		transformVideo(cv, inputVideo, transformation, outputCanvas, outputText);
 
 	//setup videos after the first render
 	useEffect(() => {
@@ -45,7 +46,7 @@ function VideoEditor(props) {
 			<section className="video-container">
 				<div>
 					<video controls ref={inputVideo} />
-					<canvas id="canvas" />
+					<canvas ref={outputCanvas} />
 				</div>
 				<div>
 					<textarea

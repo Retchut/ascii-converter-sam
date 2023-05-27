@@ -11,22 +11,20 @@ let cv, src, dst;
 let transf;
 
 function setVideo(videoRef, video) {
-	// load image
 	videoRef.current.src = video;
 }
 
-function transformVideo(openCV, videoRef, transformation, textRef) {
-	video = document.getElementsByTagName("video")[0];
-	canvas = document.getElementById("canvas");
+function transformVideo(openCV, videoRef, transformation, canvasRef, textRef) {
+	video = videoRef.current;
+	canvas = canvasRef.current;
 
 	canvas.width = video.videoWidth;
 	canvas.height = video.videoHeight;
 	height = video.videoHeight;
 	width = video.videoWidth;
 
-
 	context = canvas.getContext("2d");
- 
+
 	transf = transformation;
 	cv = openCV;
 	src = new cv.Mat(height, width, cv.CV_8UC4);
@@ -43,21 +41,20 @@ function transformVideo(openCV, videoRef, transformation, textRef) {
 			return;
 	}*/
 
-	setTimeout(processVideo, 0);
+	setTimeout(() => processVideo(canvasRef), 0);
 }
 
-function processVideo() {
-
+function processVideo(canvasRef) {
 	const FPS = 35;
 
 	let begin = Date.now();
 
-    context.drawImage(video, 0, 0, width, height);
-    src.data.set(context.getImageData(0, 0, width, height).data);
+	context.drawImage(video, 0, 0, width, height);
+	src.data.set(context.getImageData(0, 0, width, height).data);
 
 	switch (transf) {
 		case "grayscale":
-			grayscaleTransformation(cv, src, dst)
+			grayscaleTransformation(cv, src, dst);
 			break;
 		case "rotateClockwise":
 			rotateClockWise(cv, src, dst);
@@ -70,10 +67,10 @@ function processVideo() {
 			return;
 	}
 
-	cv.imshow("canvas", dst);
+	cv.imshow(canvasRef.current, dst);
 
-	let delay = 1000/FPS - (Date.now() - begin);
-    setTimeout(processVideo, delay);
+	let delay = 1000 / FPS - (Date.now() - begin);
+	setTimeout(() => processVideo(canvasRef), delay);
 }
 
 export { transformVideo, setVideo };
