@@ -5,12 +5,14 @@ import {
 	getImageASCII,
 } from "./ImageTransformations";
 
+let timeout = null;
 let height, width;
 let video, canvas, context;
 let cv, src, dst;
 let transf;
 
 function setVideo(videoRef, video, canvasRef, textareaRef) {
+	if (timeout) clearTimeout(timeout);
 	videoRef.current.src = video;
 
 	canvasRef.current.style.display = "none";
@@ -76,7 +78,7 @@ function processVideo(canvasRef) {
 	cv.imshow(canvasRef.current, dst);
 
 	let delay = 1000 / FPS - (Date.now() - begin);
-	setTimeout(() => processVideo(canvasRef), delay);
+	timeout = setTimeout(() => processVideo(canvasRef), delay);
 }
 
 export { transformVideo, setVideo };
