@@ -6,10 +6,6 @@ import {
 } from "./ImageTransformations";
 
 let timeout = null;
-let height, width;
-let video, canvas, context;
-let cv, src, dst;
-let transf;
 
 function setVideo(videoRef, video, canvasRef, textareaRef) {
 	if (timeout) clearTimeout(timeout);
@@ -20,65 +16,53 @@ function setVideo(videoRef, video, canvasRef, textareaRef) {
 }
 
 function transformVideo(openCV, videoRef, transformation, canvasRef, textRef) {
-	video = videoRef.current;
-	canvas = canvasRef.current;
+	const video = videoRef.current;
+	const canvas = canvasRef.current;
 
+	// change canvas tag style
 	canvas.style.display = "block";
 	textRef.current.style.display = "block";
-
 	canvas.width = video.videoWidth;
 	canvas.height = video.videoHeight;
-	height = video.videoHeight;
-	width = video.videoWidth;
 
-	context = canvas.getContext("2d");
-
-	transf = transformation;
-	cv = openCV;
-	src = new cv.Mat(height, width, cv.CV_8UC4);
-	dst = new cv.Mat(height, width, cv.CV_8UC4);
-
-	// console.log(src, dst);
-
-	/*switch (transformation) {
-		case "grayscale":
-			setTimeout(processVideo(grayscaleTransformation), 0);
-			break;
-		default:
-			console.error("no such transformation --", transformation);
-			return;
-	}*/
-
-	setTimeout(() => processVideo(canvasRef), 0);
+	setTimeout(() => processVideo(openCV, transformation, canvas, video), 0);
 }
 
-function processVideo(canvasRef) {
+function processVideo(openCV, transformation, canvas, video) {
+	const context = canvas.getContext("2d");
+	const height = video.videoHeight;
+	const width = video.videoWidth;
 	const FPS = 35;
+	let src = new openCV.Mat(height, width, openCV.CV_8UC4);
+	let dst = new openCV.Mat(height, width, openCV.CV_8UC4);
 
 	let begin = Date.now();
 
 	context.drawImage(video, 0, 0, width, height);
 	src.data.set(context.getImageData(0, 0, width, height).data);
 
-	switch (transf) {
+	switch (transformation) {
 		case "grayscale":
-			grayscaleTransformation(cv, src, dst);
+			grayscaleTransformation(openCV, src, dst);
 			break;
 		case "rotateClockwise":
-			rotateClockWise(cv, src, dst);
+			rotateClockWise(openCV, src, dst);
 			break;
 		case "rotateCounterClockwise":
-			rotateCounterClockWise(cv, src, dst);
+			rotateCounterClockWise(openCV, src, dst);
 			break;
 		default:
-			console.error("no such transformation --", transf);
+			console.error("no such transformation --", transformation);
 			return;
 	}
 
-	cv.imshow(canvasRef.current, dst);
+	openCV.imshow(canvas, dst);
 
 	let delay = 1000 / FPS - (Date.now() - begin);
-	timeout = setTimeout(() => processVideo(canvasRef), delay);
+	timeout = setTimeout(
+		() => processVideo(openCV, transformation, canvas, video),
+		delay
+	);
 }
 
 export { transformVideo, setVideo };
