@@ -10,10 +10,11 @@ let video, canvas, context;
 let cv, src, dst;
 let transf;
 
-function setVideo(videoRef, video, canvasRef) {
+function setVideo(videoRef, video, canvasRef, textareaRef) {
 	videoRef.current.src = video;
 
 	canvasRef.current.style.display = "none";
+	textareaRef.current.style.display = "none";
 }
 
 function transformVideo(openCV, videoRef, transformation, canvasRef, textRef) {
@@ -21,6 +22,7 @@ function transformVideo(openCV, videoRef, transformation, canvasRef, textRef) {
 	canvas = canvasRef.current;
 
 	canvas.style.display = "block";
+	textRef.current.style.display = "block";
 
 	canvas.width = video.videoWidth;
 	canvas.height = video.videoHeight;

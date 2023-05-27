@@ -15,7 +15,7 @@ function VideoEditor(props) {
 	const outputText = useRef(null);
 
 	const resetVideo = () => {
-		setVideo(inputVideo, uploadedVideo, outputCanvas);
+		setVideo(inputVideo, uploadedVideo, outputCanvas, outputText);
 	};
 
 	const applyTransformation = (transformation) =>
