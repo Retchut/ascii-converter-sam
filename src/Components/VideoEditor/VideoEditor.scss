@@ -1,0 +1,47 @@
+.video-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.video-container > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.video-container canvas, .video-container video, .video-container textarea {
+    max-width: 512px;
+    max-height: 512px;
+}
+
+.video-container canvas, .video-container video {
+    align-self: center;
+}
+
+// .video-container canvas {
+//     display: none;
+// }
+
+.video-container textarea {
+    line-height: 10px;
+}
+
+.transformations-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1250px) {
+	.video-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .video-container > * {
+        margin: 1rem 0rem;
+    }
+}

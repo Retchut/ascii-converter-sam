@@ -5,7 +5,7 @@ import TransformationSelector from "../TransformationSelector/TransformationSele
 
 import { setVideo, transformVideo } from "../../Utils/VideoOps";
 
-import "./VideoEditor.css";
+import "./VideoEditor.scss";
 
 function VideoEditor(props) {
 	const { uploadedVideo } = props;
@@ -42,13 +42,16 @@ function VideoEditor(props) {
 					<h1 className="subtitle stroke-text">Loading OpenCV...</h1>
 				)}
 			</section>
-			<section className="canvas-container">
-				<div style={{display: "flex", flexDirection: "column"}}>
-					<video controls ref={inputVideo}/>
-					<textarea ref={outputText} style={{width: 100 + '%', height: 350 + 'px'}}></textarea>
+			<section className="video-container">
+				<div>
+					<video controls ref={inputVideo} />
+					<canvas id="canvas" />
 				</div>
-				<div style={{display: "flex", flexDirection: "column"}}>
-					<canvas id="canvas" controls />
+				<div>
+					<textarea
+						ref={outputText}
+						style={{ width: 100 + "%", height: 350 + "px" }}
+					></textarea>
 				</div>
 			</section>
 		</>
