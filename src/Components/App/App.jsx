@@ -47,23 +47,19 @@ function App() {
 		const fileType = file.type.split("/");
 
 		switch (fileType[0]) {
-			case "image":
-				releaseFiles();
-				if (fileType[1] === "gif") {
-					loadVideo(file);
-				} else {
-					loadImage(file);
-				}
-				break;
-			case "video":
-				releaseFiles();
-				loadVideo(file);
-				break;
-			default:
-				setFiles({
-					error: "Image type not supported",
-				});
-				break;
+            case "image":
+                releaseFiles();
+                loadImage(file);
+                break;
+            case "video":
+                releaseFiles();
+                loadVideo(file);
+                break;
+            default:
+                setFiles({
+                    error: "Image type not supported",
+                });
+                break;
 		}
 	};
 
