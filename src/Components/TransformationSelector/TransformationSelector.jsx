@@ -1,13 +1,20 @@
 import "./TransformationSelector.scss";
 
 function TransformationForm(props) {
-	const { applyTransformation, disallowedTransformations } = props; // get callback passed as prop
+	let { applyTransformation, disallowedTransformations } = props; // get callback passed as prop
+
+	if (!disallowedTransformations) disallowedTransformations = [];
 
 	// each array will show up as buttons in a new row
 	// value is the identifier on the `imageOps` script
 	// text is the contents of the button
 	const transformations = [
-		[{ value: "grayscale", text: "Transform to grayscale" }],
+		[
+			{ value: "grayscale", text: "Transform to grayscale" },
+			{ value: "redscale", text: "Transform to redscale" },
+			{ value: "bluescale", text: "Transform to bluescale" },
+			{ value: "greenscale", text: "Transform to greenscale" },
+		],
 		[
 			{ value: "rotateClockwise", text: "Rotate clockwise" },
 			{ value: "rotateCounterClockwise", text: "Rotate counter clockwise" },
