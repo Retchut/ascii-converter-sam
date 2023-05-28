@@ -18,8 +18,9 @@ function VideoEditor(props) {
 		setVideo(inputVideo, uploadedVideo, outputCanvas, outputText);
 	};
 
-	const applyTransformation = (transformation) =>
+	const applyTransformation = (transformation) => {
 		transformVideo(cv, inputVideo, transformation, outputCanvas, outputText);
+	};
 
 	//setup videos after the first render
 	useEffect(() => {

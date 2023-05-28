@@ -9,7 +9,6 @@ import {
 let timeout = null;
 
 function setVideo(videoRef, video, canvasRef, textareaRef) {
-	if (timeout) clearTimeout(timeout);
 	videoRef.current.src = video;
 
 	canvasRef.current.style.display = "none";
@@ -17,6 +16,7 @@ function setVideo(videoRef, video, canvasRef, textareaRef) {
 }
 
 function transformVideo(openCV, videoRef, transformation, canvasRef, textRef) {
+	if (timeout) clearTimeout(timeout);
 	const FPS = 35;
 	const video = videoRef.current;
 	const canvas = canvasRef.current;
