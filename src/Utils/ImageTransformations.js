@@ -95,7 +95,7 @@ function flipVertical(openCV, src, dest) {
 
 function getImageASCII(openCV, src, numChars) {
 	openCV.cvtColor(src, src, openCV.COLOR_RGBA2GRAY);
-	const asciiChars = ['@', '#', 'O', 'o', '*', '°', '.', ' '].reverse();
+	const asciiChars = ['@', '#', 'O', 'o', '*', '°', '.', ' '];
 	
 	let asciiText = "";
 	
