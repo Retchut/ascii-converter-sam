@@ -76,17 +76,11 @@ function App() {
 					type="file"
 					onChange={(e) => onFileChange(e)}
 				/>
-				{files.error && <h1 className="stroke-text">{files.error}</h1>}
-				{files.imageFile && (
-					<OpenCvProvider>
-						<Canvas uploadedImage={files.imageFile} />
-					</OpenCvProvider>
-				)}
-				{files.videoFile && (
-					<OpenCvProvider>
-						<VideoEditor uploadedVideo={files.videoFile} />
-					</OpenCvProvider>
-				)}
+				<OpenCvProvider>
+					{files.error && <h1 className="stroke-text">{files.error}</h1>}
+					{files.imageFile && <Canvas uploadedImage={files.imageFile} />}
+					{files.videoFile && <VideoEditor uploadedVideo={files.videoFile} />}
+				</OpenCvProvider>
 			</section>
 		</main>
 	);
