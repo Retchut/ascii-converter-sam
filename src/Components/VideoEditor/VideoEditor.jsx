@@ -34,7 +34,13 @@ function VideoEditor(props) {
 						<h1 className="subtitle stroke-text">
 							Loaded openCV - choose a transformation to perform!
 						</h1>
-						<TransformationSelector applyTransformation={applyTransformation} />
+						<TransformationSelector
+							applyTransformation={applyTransformation}
+							disallowedTransformations={[
+								"rotateClockwise",
+								"rotateCounterClockwise",
+							]}
+						/>
 						<button className="edit-btn btn-text" onClick={() => resetVideo()}>
 							Reset Video
 						</button>
