@@ -85,6 +85,14 @@ function rotateCounterClockWise(openCV, src, dest) {
 	openCV.rotate(src, dest, openCV.ROTATE_90_COUNTERCLOCKWISE);
 }
 
+function flipHorizontal(openCV, src, dest) {
+	openCV.flip(src, dest, 1);
+}
+
+function flipVertical(openCV, src, dest) {
+	openCV.flip(src, dest, 0);
+}
+
 function getImageASCII(openCV, src) {
 	openCV.cvtColor(src, src, openCV.COLOR_RGBA2GRAY);
 
@@ -141,5 +149,7 @@ export {
 	getBlueMask,
 	rotateClockWise,
 	rotateCounterClockWise,
+	flipHorizontal,
+	flipVertical,
 	getImageASCII,
 };

@@ -8,6 +8,8 @@ import {
 	getBlueMask,
 	rotateClockWise,
 	rotateCounterClockWise,
+	flipHorizontal,
+	flipVertical,
 	getImageASCII,
 } from "./ImageTransformations";
 
@@ -76,6 +78,12 @@ function transformCanvas(openCV, canvasRef, transformation, textRef) {
 			break;
 		case "rotateCounterClockwise":
 			rotateCounterClockWise(openCV, srcMat, dest);
+			break;
+		case "flipHorizontal":
+			flipHorizontal(openCV, srcMat, dest);
+			break;
+		case "flipVertical":
+			flipVertical(openCV, srcMat, dest);
 			break;
 		case "ascii":
 			asciiText = getImageASCII(openCV, srcMat);

@@ -23,6 +23,8 @@ function TransformationForm(props) {
 		[
 			{ value: "rotateClockwise", text: "Rotate clockwise" },
 			{ value: "rotateCounterClockwise", text: "Rotate counter clockwise" },
+			{ value: "flipHorizontal", text: "Flip image horizontally" },
+			{ value: "flipVertical", text: "Flip image vertically" },
 			{ value: "ascii", text: "ascii" },
 		],
 	];
