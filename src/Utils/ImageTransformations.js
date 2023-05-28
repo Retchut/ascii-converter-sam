@@ -93,49 +93,35 @@ function flipVertical(openCV, src, dest) {
 	openCV.flip(src, dest, 0);
 }
 
-function getImageASCII(openCV, src) {
+function getImageASCII(openCV, src, numChars) {
 	openCV.cvtColor(src, src, openCV.COLOR_RGBA2GRAY);
-
-	const asciiChars = [".", ",", "$", "Y", "+", "P", "*", "%", "D", "J", "@"];
-
-	const imageWidth = src.cols;
-	const imageHeight = src.rows;
-
-	const maxWidth = 900;
-	const maxHeight = 512;
-
-	const aspectRatio = Math.min(maxWidth / imageWidth, maxHeight / imageHeight);
-	const blockSize = Math.ceil(15 * aspectRatio);
-
+	const asciiChars = ['@', '#', 'O', 'o', '*', '°', '.', ' '].reverse();
+	
 	let asciiText = "";
-	let charCount = 0;
-
-	for (let i = 0; i < imageHeight; i += blockSize) {
-		for (let j = 0; j < imageWidth; j += blockSize) {
-			let totalGrayscale = 0;
-
-			for (let x = i; x < Math.min(i + blockSize, imageHeight); x++) {
-				for (let y = j; y < Math.min(j + blockSize, imageWidth); y++) {
-					const grayscaleValue = src.ucharPtr(x, y)[0];
-					totalGrayscale += grayscaleValue;
-				}
-			}
-
-			const averageGrayscale = totalGrayscale / (blockSize * blockSize);
-			const asciiIndex = Math.floor(
-				(asciiChars.length - 1) * (1 - averageGrayscale / 255)
-			);
-			const asciiChar = asciiChars[asciiIndex];
-			asciiText += asciiChar;
-			charCount++;
-
-			if (charCount >= imageWidth / blockSize) {
-				asciiText += "\n";
-				charCount = 0;
-			}
-		}
+	
+	const width = src.cols;
+	const height = src.rows;
+	
+	const cellSize = Math.floor(Math.max(width, height) / numChars);
+	console.log('Cell Size is: ', cellSize);
+	
+	const resizedWidth = Math.floor(width / cellSize);
+	const resizedHeight = Math.floor(height / cellSize);
+	
+	openCV.resize(src, src, new openCV.Size(resizedWidth, resizedHeight));
+	
+	for (let y = 0; y < resizedHeight; y++) {
+	  for (let x = 0; x < resizedWidth; x++) {
+		const intensity = src.data[y * resizedWidth + x];
+		const asciiIndex = Math.floor((intensity / 255) * (asciiChars.length - 1));
+		const asciiChar = asciiChars[asciiIndex];
+		
+		asciiText += asciiChar;
+	  }
+	  
+	  asciiText += "\n";
 	}
-
+	
 	return asciiText;
 }
 

@@ -56,6 +56,7 @@ function transformCanvas(openCV, canvasRef, transformation, textRef) {
 
 	let dest = new openCV.Mat();
 	let asciiText = "";
+	let numChars = 57;
 
 	// apply transformation
 	switch (transformation) {
@@ -93,7 +94,7 @@ function transformCanvas(openCV, canvasRef, transformation, textRef) {
 			flipVertical(openCV, srcMat, dest);
 			break;
 		case "ascii":
-			asciiText = getImageASCII(openCV, srcMat);
+			asciiText = getImageASCII(openCV, srcMat, numChars);
 			break;
 		default:
 			console.error("no such transformation --", transformation);
