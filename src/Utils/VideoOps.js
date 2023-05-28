@@ -1,3 +1,4 @@
+import { transformCanvas } from "./ImageOps";
 import {
 	grayscaleTransformation,
 	rotateClockWise,
@@ -16,6 +17,7 @@ function setVideo(videoRef, video, canvasRef, textareaRef) {
 }
 
 function transformVideo(openCV, videoRef, transformation, canvasRef, textRef) {
+	const FPS = 35;
 	const video = videoRef.current;
 	const canvas = canvasRef.current;
 
@@ -25,42 +27,27 @@ function transformVideo(openCV, videoRef, transformation, canvasRef, textRef) {
 	canvas.width = video.videoWidth;
 	canvas.height = video.videoHeight;
 
-	setTimeout(() => processVideo(openCV, transformation, canvas, video), 0);
+	setTimeout(
+		() => processVideo(FPS, openCV, transformation, canvasRef, textRef, video),
+		0
+	);
 }
 
-function processVideo(openCV, transformation, canvas, video) {
+function processVideo(FPS, openCV, transformation, canvasRef, textRef, video) {
+	const canvas = canvasRef.current;
 	const context = canvas.getContext("2d");
-	const height = video.videoHeight;
-	const width = video.videoWidth;
-	const FPS = 35;
-	let src = new openCV.Mat(height, width, openCV.CV_8UC4);
-	let dst = new openCV.Mat(height, width, openCV.CV_8UC4);
 
 	let begin = Date.now();
 
-	context.drawImage(video, 0, 0, width, height);
-	src.data.set(context.getImageData(0, 0, width, height).data);
+	// draw frame in canvas
+	context.drawImage(video, 0, 0);
 
-	switch (transformation) {
-		case "grayscale":
-			grayscaleTransformation(openCV, src, dst);
-			break;
-		case "rotateClockwise":
-			rotateClockWise(openCV, src, dst);
-			break;
-		case "rotateCounterClockwise":
-			rotateCounterClockWise(openCV, src, dst);
-			break;
-		default:
-			console.error("no such transformation --", transformation);
-			return;
-	}
+	transformCanvas(openCV, canvasRef, transformation, textRef);
 
-	openCV.imshow(canvas, dst);
-
+	// maintain framerate
 	let delay = 1000 / FPS - (Date.now() - begin);
 	timeout = setTimeout(
-		() => processVideo(openCV, transformation, canvas, video),
+		() => processVideo(FPS, openCV, transformation, canvasRef, textRef, video),
 		delay
 	);
 }
