@@ -36,13 +36,13 @@ function transformCanvas(openCV, canvasRef, transformation, textRef) {
 
 	// set input text dimensions
 	inputText.style.height =
-		(canvas.height < inputText.scrollHeight
+		canvas.height < inputText.scrollHeight
 			? canvas.height
-			: inputText.scrollHeight) + "px";
+			: inputText.scrollHeight;
 	inputText.style.width =
-		(canvas.width < inputText.scrollWidth
+		canvas.width < inputText.scrollWidth
 			? canvas.width
-			: inputText.scrollHeight) + "px";
+			: inputText.scrollHeight;
 
 	// load original image from canvas
 	let srcMat = openCV.imread(canvas);
