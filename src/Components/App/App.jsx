@@ -3,6 +3,7 @@ import { OpenCvProvider } from "opencv-react";
 
 import Canvas from "../Canvas/Canvas.jsx";
 import VideoEditor from "../VideoEditor/VideoEditor.jsx";
+import { resetTimeout } from "../../Utils/VideoOps.js";
 import "./App.scss";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 			URL.revokeObjectURL(files.imageFile);
 		}
 		if (files.videoFile !== null) {
+			resetTimeout();
 			URL.revokeObjectURL(files.videoFile);
 		}
 	};

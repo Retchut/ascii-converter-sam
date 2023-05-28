@@ -1,10 +1,4 @@
 import { transformCanvas } from "./ImageOps";
-import {
-	grayscaleTransformation,
-	rotateClockWise,
-	rotateCounterClockWise,
-	getImageASCII,
-} from "./ImageTransformations";
 
 let timeout = null;
 
@@ -59,4 +53,4 @@ function processVideo(FPS, openCV, transformation, canvasRef, textRef, video) {
 	);
 }
 
-export { transformVideo, setVideo };
+export { transformVideo, setVideo, resetTimeout };
