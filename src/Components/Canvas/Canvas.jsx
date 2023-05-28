@@ -4,7 +4,7 @@ import { useOpenCv } from "opencv-react";
 import TransformationSelector from "../TransformationSelector/TransformationSelector";
 import {
 	setCanvasImage,
-	transformCanvas,
+	transformImage,
 	getImageRGBAMat,
 } from "../../Utils/ImageOps";
 import "./Canvas.scss";
@@ -20,7 +20,7 @@ function Canvas(props) {
 	};
 
 	const applyTransformation = (transformation) =>
-		transformCanvas(cv, inputCanvas, transformation, outputText);
+		transformImage(cv, inputCanvas, transformation, outputText);
 
 	//setup canvases after the first render
 	useEffect(() => {

@@ -12,7 +12,7 @@
     flex-direction: row;
 }
 
-.video-container canvas, .video-container video, .video-container textarea {
+.video-container canvas, .video-container video {
     max-width: 512px;
     max-height: 512px;
 }
@@ -22,6 +22,8 @@
 }
 
 .video-container textarea {
+    width: 768px;
+    height: 768px;
     line-height: 10px;
 }
 

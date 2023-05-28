@@ -18,14 +18,17 @@ function setVideo(videoRef, video, canvasRef, textareaRef) {
 function transformVideo(openCV, videoRef, transformation, canvasRef, textRef) {
 	if (timeout) clearTimeout(timeout);
 	const FPS = 35;
-	const video = videoRef.current;
-	const canvas = canvasRef.current;
+	let video = videoRef.current;
+	let canvas = canvasRef.current;
+	let textarea = textRef.current;
 
 	// change canvas tag style
 	canvas.style.display = "block";
-	textRef.current.style.display = "block";
+	textarea.style.display = "block";
 	canvas.width = video.videoWidth;
 	canvas.height = video.videoHeight;
+	textarea.style.width = video.videoWidth;
+	textarea.style.height = video.videoHeight;
 
 	setTimeout(
 		() => processVideo(FPS, openCV, transformation, canvasRef, textRef, video),

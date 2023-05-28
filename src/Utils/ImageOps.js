@@ -30,7 +30,7 @@ function setCanvasImage(canvasRef, image) {
 	};
 }
 
-function transformCanvas(openCV, canvasRef, transformation, textRef) {
+function transformImage(openCV, canvasRef, transformation, textRef) {
 	let canvas = canvasRef.current;
 	let inputText = textRef.current;
 
@@ -43,6 +43,13 @@ function transformCanvas(openCV, canvasRef, transformation, textRef) {
 		canvas.width < inputText.scrollWidth
 			? canvas.width
 			: inputText.scrollHeight;
+
+	transformCanvas(openCV, canvasRef, transformation, textRef);
+}
+
+function transformCanvas(openCV, canvasRef, transformation, textRef) {
+	const canvas = canvasRef.current;
+	let inputText = textRef.current;
 
 	// load original image from canvas
 	let srcMat = openCV.imread(canvas);
@@ -125,4 +132,4 @@ function getImageRGBAMat(openCV, canvasRef) {
 	return pixelRGB;
 }
 
-export { setCanvasImage, transformCanvas, getImageRGBAMat };
+export { setCanvasImage, transformImage, transformCanvas, getImageRGBAMat };

@@ -56,10 +56,7 @@ function VideoEditor(props) {
 					<canvas ref={outputCanvas} />
 				</div>
 				<div>
-					<textarea
-						ref={outputText}
-						style={{ width: 100 + "%", height: 350 + "px" }}
-					></textarea>
+					<textarea ref={outputText}></textarea>
 				</div>
 			</section>
 		</>
