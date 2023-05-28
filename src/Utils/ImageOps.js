@@ -50,6 +50,9 @@ function transformCanvas(openCV, canvasRef, transformation, textRef) {
 		case "grayscale":
 			grayscaleTransformation(openCV, srcMat, dest);
 			break;
+		case "test":
+			test(openCV, srcMat, dest);
+			break;
 		case "redscale":
 			redscaleTransformation(openCV, srcMat, dest);
 			break;

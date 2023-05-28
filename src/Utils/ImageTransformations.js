@@ -3,11 +3,40 @@ function grayscaleTransformation(openCV, src, dest) {
 }
 
 function getChannel(openCV, src, dest, channelNum) {
+	if (![0, 1, 2].includes(channelNum)) {
+		// Just remove transparency
+		openCV.cvtColor(src, dest, openCV.COLOR_RGBA2RGB);
+		return;
+	}
+
 	let rgbaPlanes = new openCV.MatVector();
 	let mergedPlanes = new openCV.MatVector();
+
+	// split
 	openCV.split(src, rgbaPlanes);
+	// get red
 	let channel = rgbaPlanes.get(channelNum);
-	mergedPlanes.push_back(channel);
+	let zeroChannel = openCV.Mat.zeros(src.rows, src.cols, openCV.CV_8UC1);
+
+	// reconstruct
+	switch (channelNum) {
+		case 0:
+			mergedPlanes.push_back(channel);
+			mergedPlanes.push_back(zeroChannel);
+			mergedPlanes.push_back(zeroChannel);
+			break;
+		case 1:
+			mergedPlanes.push_back(zeroChannel);
+			mergedPlanes.push_back(channel);
+			mergedPlanes.push_back(zeroChannel);
+			break;
+		case 2:
+			mergedPlanes.push_back(zeroChannel);
+			mergedPlanes.push_back(zeroChannel);
+			mergedPlanes.push_back(channel);
+			break;
+	}
+
 	openCV.merge(mergedPlanes, dest);
 	rgbaPlanes.delete();
 	mergedPlanes.delete();
@@ -17,11 +46,11 @@ function redscaleTransformation(openCV, src, dest) {
 	getChannel(openCV, src, dest, 0);
 }
 
-function bluescaleTransformation(openCV, src, dest) {
+function greenscaleTransformation(openCV, src, dest) {
 	getChannel(openCV, src, dest, 1);
 }
 
-function greenscaleTransformation(openCV, src, dest) {
+function bluescaleTransformation(openCV, src, dest) {
 	getChannel(openCV, src, dest, 2);
 }
 
