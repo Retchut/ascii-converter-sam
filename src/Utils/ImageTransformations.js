@@ -2,6 +2,29 @@ function grayscaleTransformation(openCV, src, dest) {
 	openCV.cvtColor(src, dest, openCV.COLOR_RGBA2GRAY);
 }
 
+function getChannelMask(openCV, src, dest, channelNum) {
+	let rgbaPlanes = new openCV.MatVector();
+	let mergedPlanes = new openCV.MatVector();
+	openCV.split(src, rgbaPlanes);
+	let channel = rgbaPlanes.get(channelNum);
+	mergedPlanes.push_back(channel);
+	openCV.merge(mergedPlanes, dest);
+	rgbaPlanes.delete();
+	mergedPlanes.delete();
+}
+
+function getRedMask(openCV, src, dest) {
+	getChannelMask(openCV, src, dest, 0);
+}
+
+function getGreenMask(openCV, src, dest) {
+	getChannelMask(openCV, src, dest, 1);
+}
+
+function getBlueMask(openCV, src, dest) {
+	getChannelMask(openCV, src, dest, 2);
+}
+
 function getChannel(openCV, src, dest, channelNum) {
 	if (![0, 1, 2].includes(channelNum)) {
 		// Just remove transparency
@@ -111,8 +134,11 @@ function getImageASCII(openCV, src) {
 export {
 	grayscaleTransformation,
 	redscaleTransformation,
-	bluescaleTransformation,
+	getRedMask,
 	greenscaleTransformation,
+	getGreenMask,
+	bluescaleTransformation,
+	getBlueMask,
 	rotateClockWise,
 	rotateCounterClockWise,
 	getImageASCII,

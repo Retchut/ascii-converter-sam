@@ -1,8 +1,11 @@
 import {
 	grayscaleTransformation,
 	redscaleTransformation,
-	bluescaleTransformation,
+	getRedMask,
 	greenscaleTransformation,
+	getGreenMask,
+	bluescaleTransformation,
+	getBlueMask,
 	rotateClockWise,
 	rotateCounterClockWise,
 	getImageASCII,
@@ -50,17 +53,23 @@ function transformCanvas(openCV, canvasRef, transformation, textRef) {
 		case "grayscale":
 			grayscaleTransformation(openCV, srcMat, dest);
 			break;
-		case "test":
-			test(openCV, srcMat, dest);
-			break;
 		case "redscale":
 			redscaleTransformation(openCV, srcMat, dest);
+			break;
+		case "redMask":
+			getRedMask(openCV, srcMat, dest);
+			break;
+		case "greenscale":
+			greenscaleTransformation(openCV, srcMat, dest);
+			break;
+		case "greenMask":
+			getGreenMask(openCV, srcMat, dest);
 			break;
 		case "bluescale":
 			bluescaleTransformation(openCV, srcMat, dest);
 			break;
-		case "greenscale":
-			greenscaleTransformation(openCV, srcMat, dest);
+		case "blueMask":
+			getBlueMask(openCV, srcMat, dest);
 			break;
 		case "rotateClockwise":
 			rotateClockWise(openCV, srcMat, dest);

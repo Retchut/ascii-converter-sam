@@ -16,6 +16,11 @@ function TransformationForm(props) {
 			{ value: "greenscale", text: "Transform to greenscale" },
 		],
 		[
+			{ value: "redMask", text: "Get red mask" },
+			{ value: "blueMask", text: "Get blue mask" },
+			{ value: "greenMask", text: "Get green mask" },
+		],
+		[
 			{ value: "rotateClockwise", text: "Rotate clockwise" },
 			{ value: "rotateCounterClockwise", text: "Rotate counter clockwise" },
 			{ value: "ascii", text: "ascii" },
